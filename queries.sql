@@ -141,3 +141,60 @@ where a.author_id between 1 and 5
 group by a.author_id
 order by a.name;
 
+select nationality from authors
+where nationality is not null
+group by nationality;
+order by nationality;
+
+select distinct nationality from authors
+where nationality is not null
+order by nationality;
+
+select nationality, count(author_id) as c_authors
+from authors
+group by nationality
+order by nationality;
+
+select a.nationality, count(b.book_id) as c_books
+from books as b
+inner join authors as a
+    on b.author_id = a.author_id
+group by a.nationality
+order by a.nationality;
+
+select avg(price) as prom, stddev(price) as std
+from books;
+
+select a.nationality,
+    count(b.book_id) as c_books,
+    avg(price) as prom,
+    stddev(price) as std
+from books as b
+inner join authors as a
+    on a.author_id = b.author_id
+group by a.nationality
+order by c_books desc;
+
+select max(price), min(price)
+from books;
+
+select nationality, max(price), min(price)
+from books as b
+inner join authors as a
+    on a.author_id = b.author_id
+group by nationality
+order by max(price) desc;
+
+select
+    c.name,
+    t.type,
+    b.title,
+    concat(a.name, " (", a.nationality, ")") as author,
+    to_days(now()) - to_days(t.created_at) as ago
+from transactions as t
+left join clients as c
+    on c.client_id = t.client_id
+left join books as b
+    on b.book_id = t.book_id
+left join authors as a
+    on b.author_id = a.author_id;
