@@ -42,7 +42,7 @@ CREATE TABLE `transactions` (
   `transaction_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `book_id` int(10) unsigned NOT NULL,
   `client_id` int(10) unsigned NOT NULL,
-  `type` enum('lend','sell') NOT NULL,
+  `type` enum('lend','sell', 'return') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `finished` tinyint(1) NOT NULL DEFAULT '0',
