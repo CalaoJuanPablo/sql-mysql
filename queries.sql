@@ -198,3 +198,17 @@ left join books as b
     on b.book_id = t.book_id
 left join authors as a
     on b.author_id = a.author_id;
+
+delete
+from authors
+where author_id = 161
+limit 1;
+
+update clients
+set [column = valor, ...]
+where [conditions];
+
+update clients
+set active = 0
+where client_id = 80
+limit 1;
