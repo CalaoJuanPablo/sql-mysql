@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS books
     `description` TEXT
 );
 
-CREATE TABLE IF NOT EXISTS autors (
+CREATE TABLE IF NOT EXISTS authors (
     author_id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
     nationality VARCHAR(3) 
@@ -39,19 +39,19 @@ CREATE TABLE IF NOT EXISTS operations (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT INTO autors(`name`, nationality)
+INSERT INTO authors(`name`, nationality)
     VALUES('Juan Rulfo', 'MEX');
 
-INSERT INTO autors(`name`, nationality)
+INSERT INTO authors(`name`, nationality)
     VALUES('Gabriel García Marquez', 'COL');
 
-INSERT INTO autors
+INSERT INTO authors
     VALUES('', 'Juan Gabriel Vasquez', 'COL');
 
-INSERT INTO autors(`name`, nationality)
+INSERT INTO authors(`name`, nationality)
     VALUES('Juan Gabriel Vasquez', 'COL');
 
-INSERT INTO autors(`name`, nationality)
+INSERT INTO authors(`name`, nationality)
     VALUES
         ('Julio Coltazar', 'ARG'),
         ('Isabel Allende', 'CHI'),
@@ -73,7 +73,7 @@ INSERT INTO books(title, author_id, `year`)
 
 INSERT INTO books(title, author_id, `year`)
 	VALUES('Vuelta al Laberinto de la Soledad',
-    (SELECT author_id FROM autors WHERE `name` = 'Octavio Paz' LIMIT 1),
+    (SELECT author_id FROM authors WHERE `name` = 'Octavio Paz' LIMIT 1),
     1960);
 
 SELECT `name`, email
@@ -125,3 +125,19 @@ inner join authors as a
     on b.author_id = a.author_id
 where c.gender = 'M'
 and t.type in ('sell', 'lend');
+
+select a.author_id, a.name, a.nationality, b.title
+from authors as a
+left join books as b
+    on b.author_id = a.author_id
+where a.author_id between 1 and 5
+order by a.name;
+
+select a.author_id, a.name, a.nationality, count(b.book_id) as `books count`
+from authors as a
+left join books as b
+    on b.author_id = a.author_id
+where a.author_id between 1 and 5
+group by a.author_id
+order by a.name;
+
