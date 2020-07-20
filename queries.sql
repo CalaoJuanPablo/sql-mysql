@@ -67,3 +67,11 @@ INSERT INTO `clients`(`name`, email, birthdate, gender, active) VALUES
     INSERT INTO `clients`(`name`, email, birthdate, gender, active) VALUES
         ('Pedro Sanchez','Pedro.78522059J@random.names','1992-01-31','M',0)
         ON DUPLICATE KEY UPDATE active = VALUES(active);
+
+INSERT INTO books(title, author_id, `year`)
+	VALUES('El Laberinto de la Soledad', 6, 1952);
+
+INSERT INTO books(title, author_id, `year`)
+	VALUES('Vuelta al Laberinto de la Soledad',
+    (SELECT author_id FROM autors WHERE `name` = 'Octavio Paz' LIMIT 1),
+    1960);
